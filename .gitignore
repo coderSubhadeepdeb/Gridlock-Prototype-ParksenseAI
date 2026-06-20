@@ -1,0 +1,51 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+web_modules/
+
+# Production build outputs
+dist/
+build/
+out/
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Large dataset files (excludes raw CSV files from git repository)
+*.csv
+
+# Generated archives
+parksense_ai_source_code.zip
+
+submission_package/
+
+# Editor / IDE configuration caches
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
+
+# Diagnostic files
+.eslintcache
+.vite
+
+# Local environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS system files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini

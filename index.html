@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ParkSense AI — Parking Intelligence Command Center</title>
+  <meta name="description" content="AI-driven parking intelligence platform that detects illegal parking hotspots and quantifies their impact on traffic flow for targeted enforcement in Bengaluru." />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/src/styles/index.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="28" height="28" rx="8" fill="url(#logoGrad)" />
+              <path d="M16 8L10 14H13V20H19V14H22L16 8Z" fill="white" opacity="0.9"/>
+              <circle cx="16" cy="23" r="2" fill="white" opacity="0.7"/>
+              <defs>
+                <linearGradient id="logoGrad" x1="2" y1="2" x2="30" y2="30">
+                  <stop stop-color="#6366f1"/>
+                  <stop offset="1" stop-color="#8b5cf6"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <span class="logo-name">ParkSense</span>
+            <span class="logo-badge">AI</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="nav-section">
+        <span class="nav-label">DASHBOARD</span>
+        <ul class="nav-links">
+          <li>
+            <a href="#command-center" class="nav-link active" data-page="command-center" id="nav-command-center">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              Command Center
+            </a>
+          </li>
+          <li>
+            <a href="#hotspot-analytics" class="nav-link" data-page="hotspot-analytics" id="nav-hotspot-analytics">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7" opacity="0.5"/><circle cx="12" cy="12" r="10" opacity="0.3"/></svg>
+              Hotspot Analytics
+            </a>
+          </li>
+          <li>
+            <a href="#enforcement" class="nav-link" data-page="enforcement" id="nav-enforcement">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L3 7v6c0 5.25 3.83 10.15 9 11.25 5.17-1.1 9-6 9-11.25V7l-9-5z"/></svg>
+              Enforcement Intel
+            </a>
+          </li>
+          <li>
+            <a href="#predictions" class="nav-link" data-page="predictions" id="nav-predictions">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
+              Predictive Insights
+            </a>
+          </li>
+          <li>
+            <a href="#reports" class="nav-link" data-page="reports" id="nav-reports">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              Reports
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="sidebar-footer">
+        <div class="system-status">
+          <div class="status-dot pulse"></div>
+          <span>System Active</span>
+        </div>
+        <div class="footer-info">
+          <span class="footer-text">Flipkart Gridlock 2026</span>
+          <span class="footer-version">v1.0.0</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="main-content">
+      <!-- Top Bar -->
+      <header id="top-bar" class="top-bar">
+        <div class="top-bar-left">
+          <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle Sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <h1 id="page-title" class="page-title">Command Center</h1>
+        </div>
+        <div class="top-bar-right">
+          <div class="live-badge">
+            <div class="live-dot"></div>
+            <span>LIVE DATA</span>
+          </div>
+          <div id="datetime-display" class="datetime-display"></div>
+        </div>
+      </header>
+
+      <!-- Page Container -->
+      <div id="page-container" class="page-container">
+        <!-- Pages are rendered here dynamically -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet.heat plugin -->
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
